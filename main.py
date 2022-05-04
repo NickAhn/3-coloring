@@ -1,7 +1,10 @@
-vertices = 4 # number of vertices = number of lines in input file
-colors = 3 # R G B
+vertices = 4
 
-#TODO: make dictionary instead of single list
+input_file = open("input.txt", "r")
+lines = [line.strip('\n') for line in input_file if line != "\n"] 
+
+vertices = len(lines)  # number of vertices = number of lines in input file
+colors = 3 # R G B
 
 # create a dictionary where key = vertice letter, value = possible colors
 ascii = 97 # starting at 'a'
@@ -17,13 +20,6 @@ while (counter < vertices*colors + 1):
 for key, value in dic.items():
     print(key, value, sep=" : ") 
 
-
-# numbers = [i for i in range(1, vertices * colors+1)]
-# print(numbers)
-
-i = 0
-#singe color constraint
-
 print("\nSingle Value Constraints: ")
 for list in dic.values():
     for num in list:
@@ -36,3 +32,16 @@ for list in dic.values():
 
     print() # newline TODO: delete
 
+
+def getCombinations(vert1, vert2):
+    for x, y in zip(vert1, vert2):
+        print(-1*x, -1*y, sep = " ", end = " 0\n")
+
+print("Unique Color Constraints: ")
+for key, line in zip(dic.keys(), lines):
+    for edge in line.split():
+        getCombinations(dic[key], dic[edge])
+        print()
+
+
+    
