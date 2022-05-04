@@ -2,22 +2,37 @@ vertices = 4 # number of vertices = number of lines in input file
 colors = 3 # R G B
 
 #TODO: make dictionary instead of single list
-numbers = [i for i in range(1, vertices * colors+1)]
-print(numbers)
+
+# create a dictionary where key = vertice letter, value = possible colors
+ascii = 97 # starting at 'a'
+counter = 1
+dic = {}
+while (counter < vertices*colors + 1):
+    temp = [i for i in range(counter, counter+3)]
+    dic[chr(ascii)] = temp
+    counter += 3 
+    ascii += 1 # next letter in alphabet
+
+    
+for key, value in dic.items():
+    print(key, value, sep=" : ") 
+
+
+# numbers = [i for i in range(1, vertices * colors+1)]
+# print(numbers)
 
 i = 0
 #singe color constraint
-print("\nSingle Color Constraint:")
-while i < len(numbers):
-    temp = numbers[i: (i+3)] # A_r A_g A_b ...
-    for vertice in temp:
-        print(vertice, " ", end="")
 
-    print() # new line
-    for j in range(len(temp)):
-        for k in range(j+1, len(temp)):
-            print(-1*temp[j], -1*temp[k], "0", sep=" ")
+print("\nSingle Value Constraints: ")
+for list in dic.values():
+    for num in list:
+        print(num, end = " ")
+    print(0)
 
-    print()
-    i += 3
+    for j in range(len(list)):
+        for k in range(j+1, len(list)):
+            print(-1*list[j], -1*list[k], "0", sep = " ")
+
+    print() # newline TODO: delete
 
