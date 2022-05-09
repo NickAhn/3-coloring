@@ -1,4 +1,16 @@
-input_file = open("input.txt", "r")
+import sys
+
+input_filename = "input.txt"  # input file is input.txt by default
+output_filename = "output.txt" # output file is output.txt by default
+# Check if user input custom input/output files
+if len(sys.argv) > 1:
+    input_filename = sys.argv[1]
+    output_filename = sys.argv[2]
+
+input_file = open(input_filename, "r") 
+output_file = open(output_filename, "a")
+output_file.truncate(0)  # empty text file
+
 lines = [line.strip('\n') for line in input_file if line != "\n"] # Separate lines and ignore empty lines 
 
 vertices = len(lines)  # number of vertices = number of lines in input file
@@ -18,21 +30,18 @@ while (counter < vertices*colors + 1):
     counter += 3 
     ascii += 1 
 
-    
-# for key, value in dic.items():
-#     print(key, value, sep=" : ") 
-
-# print("\nSingle Value Constraints: ")
+# Create Single-Value Constraints
 for list in dic.values():
     for num in list:
-        print(num, end = " ")
-    print(0)
+        # print(num, end = " ")
+        output_file.write(str(num) + " ")
+    # print(0)
+    output_file.write("0\n")
 
     for j in range(len(list)):
         for k in range(j+1, len(list)):
-            print(-1*list[j], -1*list[k], "0", sep = " ")
-
-    # print() # newline TODO: delete
+            # print(-1*list[j], -1*list[k], "0", sep = " ")
+            output_file.write(str(-1*list[j]) + " " + str(-1*list[k]) + " 0\n")
 
 '''
 Function to print all the unique combinations of two lists
@@ -41,7 +50,8 @@ Function to print all the unique combinations of two lists
 '''
 def getCombinations(list1, list2):
     for x, y in zip(list1, list2):
-        print(-1*x, -1*y, sep = " ", end = " 0\n")
+        # print(-1*x, -1*y, sep = " ", end = " 0\n")
+        output_file.write(str(-1*x) + " " + str(-1*y) + " 0\n")
 
 
 '''
